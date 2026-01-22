@@ -1,1 +1,31 @@
-<p>buscar-personaje works!</p>
+<div style="padding: 20px">
+  <h2>Lista de Personajes</h2>
+
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Raza</th>
+        <th>Nivel de Corrupción</th>
+        <th>Fecha de Nacimiento</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (personaje of personajes; track personaje.id) {
+        <tr>
+          <td>{{ personaje.nombre }}</td>
+          <td>{{ personaje.raza }}</td>
+          <td>
+            <meter min="0" max="100" [value]="personaje.nivelCorrupcion"></meter>
+            {{ personaje.nivelCorrupcion }}
+          </td>
+          <td>{{ personaje.fechaNacimiento }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center">No hay personajes registrados.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

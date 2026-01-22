@@ -10,6 +10,6 @@ export class PersonajesService {
   private baseUrl = environment.esdlaUrl;
 
   getAllPersonajes(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}`);
+    return this.http.get<any[]>(`${this.baseUrl}api/listaPersonajes`);
   }
 }
