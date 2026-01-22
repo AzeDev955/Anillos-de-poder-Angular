@@ -1,0 +1,61 @@
+<h2 style="margin-bottom: 20px">Nueva Raza</h2>
+
+<form
+  [formGroup]="formulario"
+  (ngSubmit)="enviar()"
+  style="display: flex; flex-direction: column; gap: 15px"
+>
+  <div>
+    <label style="display: block">Nombre</label>
+    <input pInputText type="text" formControlName="nombre" />
+    @if (formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched) {
+      <small style="color: red">Mínimo 3 caracteres</small>
+    }
+  </div>
+
+  <div>
+    <label style="display: block">Descripción</label>
+    <textarea pTextarea formControlName="descripcion" rows="3" style="width: 100%"></textarea>
+    @if (formulario.get('descripcion')?.invalid && formulario.get('descripcion')?.touched) {
+      <small style="color: red">Mínimo 10 caracteres</small>
+    }
+  </div>
+
+  <div>
+    <label style="display: block">Longevidad</label>
+    <input pInputText type="text" formControlName="longevidad" />
+    @if (formulario.get('longevidad')?.invalid && formulario.get('longevidad')?.touched) {
+      <small style="color: red">Campo obligatorio</small>
+    }
+  </div>
+
+  <div>
+    <label style="display: block">Corrupción: {{ formulario.get('nivelCorrupcion')?.value }}</label>
+    <input type="range" formControlName="nivelCorrupcion" min="0" max="100" style="width: 100%" />
+  </div>
+
+  <div>
+    <label style="display: block">Región principal</label>
+    <p-select
+      [options]="regiones"
+      formControlName="regionPrincipal"
+      placeholder="Selecciona..."
+    ></p-select>
+    @if (formulario.get('regionPrincipal')?.invalid && formulario.get('regionPrincipal')?.touched) {
+      <small style="color: red">Selecciona una región</small>
+    }
+  </div>
+
+  <div>
+    <label style="display: block; margin-bottom: 5px">Afinidad mágica</label>
+    <p-selectbutton [options]="afinidades" formControlName="afinidadMagica"></p-selectbutton>
+    @if (formulario.get('afinidadMagica')?.invalid && formulario.get('afinidadMagica')?.touched) {
+      <small style="color: red">Requerido</small>
+    }
+  </div>
+
+  <div style="display: flex; gap: 10px; margin-top: 10px">
+    <p-button type="submit" label="Guardar"></p-button>
+    <p-button type="button" label="Limpiar" severity="warn" (onClick)="limpiar()"></p-button>
+  </div>
+</form>

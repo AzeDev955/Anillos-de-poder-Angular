@@ -1,0 +1,58 @@
+<div class="barraBusqueda">
+  <div class="acciones">
+    <button routerLink="/buscar-anillo" pButton label="Ir a Buscar Anillo"></button>
+  </div>
+</div>
+
+<div class="formulario-container" style="padding: 20px">
+  <h2>Registro de Anillo</h2>
+
+  <form [formGroup]="formularioAnillo" (ngSubmit)="enviar()">
+    <div class="mb-3">
+      <label style="display: block">Nombre</label>
+      <input pInputText type="text" formControlName="nombre" />
+      @if (nombre?.invalid && nombre?.touched) {
+        <small style="color: red; display: block">Mínimo 3 caracteres</small>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label style="display: block">Portador</label>
+      <input pInputText type="text" formControlName="portador" />
+      @if (portador?.invalid && portador?.touched) {
+        <small style="color: red; display: block">Mínimo 3 caracteres</small>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label style="display: block">Raza</label>
+      <p-select
+        [options]="razasOptions"
+        formControlName="raza"
+        placeholder="Selecciona..."
+        [style]="{ width: '100%' }"
+      ></p-select>
+      @if (raza?.invalid && raza?.touched) {
+        <small style="color: red; display: block">Obligatorio</small>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label style="display: block">Poder</label>
+      <input pInputText type="text" formControlName="poder" />
+      @if (poder?.invalid && poder?.touched) {
+        <small style="color: red; display: block">Mínimo 10 caracteres</small>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label style="display: block">Corrupción: {{ corrupcion?.value }}</label>
+      <input type="range" formControlName="corrupcion" min="0" max="100" style="width: 100%" />
+    </div>
+
+    <div style="margin-top: 20px; display: flex; gap: 10px">
+      <p-button type="submit" label="Guardar"></p-button>
+      <p-button type="button" label="Limpiar" severity="secondary" (onClick)="limpiar()"></p-button>
+    </div>
+  </form>
+</div>

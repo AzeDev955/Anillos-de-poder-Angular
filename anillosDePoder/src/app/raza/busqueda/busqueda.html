@@ -1,0 +1,35 @@
+<div class="barraBusqueda">
+  <div class="acciones">
+    <button
+      pButton
+      label="Explorar Razas"
+      routerLink="/explorar-razas"
+      disabled="true"
+      class="p-button-outlined"
+    ></button>
+    <button pButton label="Crear Nueva Raza" routerLink="/crear-raza"></button>
+  </div>
+</div>
+
+<div class="busqueda-container" style="padding: 20px">
+  <h2>Explorador de Razas</h2>
+  <div class="busqueda" style="margin-bottom: 20px; display: flex; gap: 10px">
+    <input type="text" pInputText [(ngModel)]="campoBusqueda" placeholder="Buscar por nombre..." />
+    <p-button label="Buscar" icon="pi pi-search" (onClick)="buscar()" severity="contrast" />
+  </div>
+
+  <table class="tabla">
+    <tbody>
+      @for (raza of razasFiltradas; track raza.id) {
+        <tr>
+          <td>{{ raza.nombre }}</td>
+          <td>{{ raza.descripcion }}</td>
+          <td>{{ raza.longevidad }}</td>
+          <td>{{ raza.regionPrincipal }}</td>
+          <td>{{ raza.afinidadMagica ? 'Alta' : 'Nula' }}</td>
+          <td>{{ raza.nivelCorrupcion }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
