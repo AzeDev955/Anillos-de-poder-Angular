@@ -8,13 +8,23 @@
 
       <div class="field">
         <label for="raza" class="block mb-2">Raza</label>
-        <input
-          pInputText
+        <p-select
           id="raza"
+          [options]="razas"
           formControlName="raza"
-          class="w-full"
-          placeholder="Ej: HUMANO, ELFO..."
-        />
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Selecciona una raza"
+          [style]="{ width: '100%' }"
+          appendTo="body"
+        >
+        </p-select>
+        <small
+          *ngIf="form.get('raza')?.invalid && form.get('raza')?.touched"
+          style="color: red; display: block; margin-top: 5px"
+        >
+          La raza es obligatoria.
+        </small>
       </div>
 
       <div class="field">
@@ -25,6 +35,7 @@
           [min]="0"
           [max]="100"
           [showButtons]="true"
+          class="w-full"
         ></p-inputNumber>
       </div>
 

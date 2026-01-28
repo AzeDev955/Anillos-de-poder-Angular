@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PersonajesService, PersonajeDTO } from '../../services/personajes';
 
-// PrimeNG
+// PrimeNG Imports
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-editar-personaje',
@@ -20,6 +21,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ButtonModule,
     CardModule,
     InputNumberModule,
+    SelectModule,
     RouterModule,
   ],
   templateUrl: './editar-personaje.html',
@@ -29,15 +31,23 @@ export class EditarPersonajeComponent implements OnInit {
   esEdicion = false;
   idPersonaje: number | null = null;
 
+  razas = [
+    { label: 'Elfo', value: 'ELFO' },
+    { label: 'Enano', value: 'ENANO' },
+    { label: 'Humano', value: 'HUMANO' },
+    { label: 'Maiar', value: 'MAIAR' },
+    { label: 'Oscuro', value: 'OSCURO' },
+  ];
+
   constructor(
     private fb: FormBuilder,
-    private personajes: PersonajesService,
+    private personajesService: PersonajesService,
     private route: ActivatedRoute,
     private router: Router,
   ) {
     this.form = this.fb.group({
       nombre: ['', [Validators.required]],
-      raza: ['', [Validators.required]],
+      raza: [null, [Validators.required]],
       nivelCorrupcion: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
       fechaNacimiento: ['', [Validators.required]],
     });
@@ -55,7 +65,7 @@ export class EditarPersonajeComponent implements OnInit {
   }
 
   cargarPersonaje(id: number) {
-    this.personajes.getPersonajeById(id).subscribe({
+    this.personajesService.getPersonajeById(id).subscribe({
       next: (data) => {
         this.form.patchValue({
           nombre: data.nombre,
@@ -80,7 +90,7 @@ export class EditarPersonajeComponent implements OnInit {
     };
 
     if (this.esEdicion && this.idPersonaje) {
-      this.personajes.updatePersonaje(this.idPersonaje, personaje).subscribe({
+      this.personajesService.updatePersonaje(this.idPersonaje, personaje).subscribe({
         next: () => {
           alert('Personaje actualizado correctamente');
           this.router.navigate(['/personajes']);
@@ -88,7 +98,7 @@ export class EditarPersonajeComponent implements OnInit {
         error: (e) => alert('Error al actualizar: ' + e.message),
       });
     } else {
-      this.personajes.createPersonaje(personaje).subscribe({
+      this.personajesService.createPersonaje(personaje).subscribe({
         next: () => {
           alert('Personaje creado correctamente');
           this.router.navigate(['/personajes']);
