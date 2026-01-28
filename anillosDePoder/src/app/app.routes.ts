@@ -4,6 +4,7 @@ import { Busqueda } from './anillo/busqueda/busqueda';
 import { DetalleRaza } from './raza/detalle-raza/detalle-raza';
 import { Busqueda2 } from './raza/busqueda/busqueda';
 import { BuscarPersonaje } from './personajes/buscar-personaje/buscar-personaje';
+import { EditarPersonajeComponent } from './personajes/editar-personaje/editar-personaje';
 
 export const routes: Routes = [
   { path: 'buscar-anillo', component: Busqueda },
@@ -11,5 +12,7 @@ export const routes: Routes = [
   { path: 'explorar-razas', component: Busqueda2 },
   { path: 'crear-raza', component: DetalleRaza },
   { path: 'personajes', component: BuscarPersonaje },
+  { path: 'personajes/nuevo', component: EditarPersonajeComponent },
+  { path: 'personajes/editar/:id', component: EditarPersonajeComponent },
   { path: '', redirectTo: 'buscar-anillo', pathMatch: 'full' },
 ];

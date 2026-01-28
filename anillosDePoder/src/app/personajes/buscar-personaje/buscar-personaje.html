@@ -1,31 +1,41 @@
 <div style="padding: 20px">
-  <h2>Lista de Personajes</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2>Lista de Personajes (PrimeNG)</h2>
+    <p-button label="Nuevo Personaje" icon="pi pi-plus" routerLink="/personajes/nuevo"></p-button>
+  </div>
 
-  <table class="tabla">
-    <thead>
+  <p-table [value]="personajes" [tableStyle]="{ 'min-width': '50rem' }" stripedRows>
+    <ng-template pTemplate="header">
       <tr>
-        <th>Nombre</th>
-        <th>Raza</th>
+        <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+        <th pSortableColumn="raza">Raza <p-sortIcon field="raza"></p-sortIcon></th>
         <th>Nivel de Corrupción</th>
         <th>Fecha de Nacimiento</th>
+        <th>Acciones</th>
       </tr>
-    </thead>
-    <tbody>
-      @for (personaje of personajes; track personaje.id) {
-        <tr>
-          <td>{{ personaje.nombre }}</td>
-          <td>{{ personaje.raza }}</td>
-          <td>
-            <meter min="0" max="100" [value]="personaje.nivelCorrupcion"></meter>
-            {{ personaje.nivelCorrupcion }}
-          </td>
-          <td>{{ personaje.fechaNacimiento }}</td>
-        </tr>
-      } @empty {
-        <tr>
-          <td colspan="4" style="text-align: center">No hay personajes registrados.</td>
-        </tr>
-      }
-    </tbody>
-  </table>
+    </ng-template>
+    <ng-template pTemplate="body" let-personaje>
+      <tr>
+        <td>{{ personaje.nombre }}</td>
+        <td>{{ personaje.raza }}</td>
+        <td>
+           <p-progressBar [value]="personaje.nivelCorrupcion" [showValue]="true" [style]="{'height': '20px'}"></p-progressBar>
+        </td>
+        <td>{{ personaje.fechaNacimiento }}</td>
+        <td>
+          <p-button 
+            icon="pi pi-pencil" 
+            [rounded]="true" 
+            severity="success" 
+            [routerLink]="['/personajes/editar', personaje.id]">
+          </p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" style="text-align: center">No hay personajes registrados.</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

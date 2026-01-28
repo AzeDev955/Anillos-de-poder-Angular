@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core'; // Importar OnInit
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { PersonajesService } from '../../services/personajes';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
   selector: 'app-buscar-personaje',
