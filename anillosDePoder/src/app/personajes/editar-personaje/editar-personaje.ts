@@ -1,0 +1,100 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { PersonajesService, PersonajeDTO } from '../../services/personajes';
+
+// PrimeNG
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { InputNumberModule } from 'primeng/inputnumber';
+
+@Component({
+  selector: 'app-editar-personaje',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    ButtonModule,
+    CardModule,
+    InputNumberModule,
+    RouterModule,
+  ],
+  templateUrl: './editar-personaje.html',
+})
+export class EditarPersonajeComponent implements OnInit {
+  form: FormGroup;
+  esEdicion = false;
+  idPersonaje: number | null = null;
+
+  constructor(
+    private fb: FormBuilder,
+    private personajes: PersonajesService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.form = this.fb.group({
+      nombre: ['', [Validators.required]],
+      raza: ['', [Validators.required]],
+      nivelCorrupcion: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      fechaNacimiento: ['', [Validators.required]],
+    });
+  }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.esEdicion = true;
+        this.idPersonaje = +id;
+        this.cargarPersonaje(this.idPersonaje);
+      }
+    });
+  }
+
+  cargarPersonaje(id: number) {
+    this.personajes.getPersonajeById(id).subscribe({
+      next: (data) => {
+        this.form.patchValue({
+          nombre: data.nombre,
+          raza: data.raza,
+          nivelCorrupcion: data.nivelCorrupcion,
+          fechaNacimiento: data.fechaNacimiento,
+        });
+      },
+      error: (e) => console.error('Error cargando personaje', e),
+    });
+  }
+
+  guardar() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const personaje: PersonajeDTO = {
+      ...this.form.value,
+      id: this.idPersonaje || undefined,
+    };
+
+    if (this.esEdicion && this.idPersonaje) {
+      this.personajes.updatePersonaje(this.idPersonaje, personaje).subscribe({
+        next: () => {
+          alert('Personaje actualizado correctamente');
+          this.router.navigate(['/personajes']);
+        },
+        error: (e) => alert('Error al actualizar: ' + e.message),
+      });
+    } else {
+      this.personajes.createPersonaje(personaje).subscribe({
+        next: () => {
+          alert('Personaje creado correctamente');
+          this.router.navigate(['/personajes']);
+        },
+        error: (e) => alert('Error al crear: ' + e.message),
+      });
+    }
+  }
+}
