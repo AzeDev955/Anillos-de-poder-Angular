@@ -1,6 +1,8 @@
 <div style="padding: 20px">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-    <h2>Lista de Personajes (PrimeNG)</h2>
+  <div
+    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px"
+  >
+    <h2>Lista de Personajes</h2>
     <p-button label="Nuevo Personaje" icon="pi pi-plus" routerLink="/personajes/nuevo"></p-button>
   </div>
 
@@ -19,15 +21,20 @@
         <td>{{ personaje.nombre }}</td>
         <td>{{ personaje.raza }}</td>
         <td>
-           <p-progressBar [value]="personaje.nivelCorrupcion" [showValue]="true" [style]="{'height': '20px'}"></p-progressBar>
+          <p-progressBar
+            [value]="personaje.nivelCorrupcion"
+            [showValue]="true"
+            [style]="{ height: '20px' }"
+          ></p-progressBar>
         </td>
         <td>{{ personaje.fechaNacimiento }}</td>
         <td>
-          <p-button 
-            icon="pi pi-pencil" 
-            [rounded]="true" 
-            severity="success" 
-            [routerLink]="['/personajes/editar', personaje.id]">
+          <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            severity="success"
+            [routerLink]="['/personajes/editar', personaje.id]"
+          >
           </p-button>
         </td>
       </tr>
