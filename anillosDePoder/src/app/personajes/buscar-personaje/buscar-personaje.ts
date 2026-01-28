@@ -8,7 +8,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
   selector: 'app-buscar-personaje',
-  imports: [],
+  imports: [CommonModule, RouterModule, TableModule, ButtonModule, ProgressBarModule],
   templateUrl: './buscar-personaje.html',
   styleUrl: './buscar-personaje.css',
 })
