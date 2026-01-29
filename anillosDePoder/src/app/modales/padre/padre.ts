@@ -11,6 +11,8 @@ import { ConfiguracionPopup } from '../../interfaces/configuracion-popup';
 export class Padre {
   parametrosModal: ConfiguracionPopup = {
     message: '¿Quieres borrar el personaje?',
+    severity: 'success',
+    nameButton: 'Aguila putero tintin fan',
     header: 'Elver',
   };
 }
