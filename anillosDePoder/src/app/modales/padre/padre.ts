@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfirmarPopup } from '../confirmar-popup/confirmar-popup';
+import { ConfiguracionPopup } from '../../interfaces/configuracion-popup';
 
 @Component({
   selector: 'app-padre',
@@ -8,5 +9,8 @@ import { ConfirmarPopup } from '../confirmar-popup/confirmar-popup';
   styleUrl: './padre.css',
 })
 export class Padre {
-  parametrosModal;
+  parametrosModal: ConfiguracionPopup = {
+    message: '¿Quieres borrar el personaje?',
+    header: 'Elver',
+  };
 }
