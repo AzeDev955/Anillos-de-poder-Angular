@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+
 export interface PersonajeDTO {
   id: number;
   nombre: string;
   raza: string;
   fechaNacimiento: string;
   nivelCorrupcion: number;
+  fechaBaja?: string | Date;
 }
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,5 +33,17 @@ export class PersonajesService {
 
   updatePersonaje(id: number, personaje: PersonajeDTO): Observable<PersonajeDTO> {
     return this.http.put<PersonajeDTO>(`${this.baseUrl}api/actualizarPersonaje/${id}`, personaje);
+  }
+
+  bajaLogica(id: number): Observable<PersonajeDTO> {
+    return this.http.put<PersonajeDTO>(`${this.baseUrl}api/bajaLogica/${id}`, {});
+  }
+
+  reactivar(id: number): Observable<PersonajeDTO> {
+    return this.http.put<PersonajeDTO>(`${this.baseUrl}api/reactivar/${id}`, {});
+  }
+
+  bajaFisica(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}api/bajaFisica/${id}`);
   }
 }
