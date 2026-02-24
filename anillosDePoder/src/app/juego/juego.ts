@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@
 import { JuegoService } from '../services/juego-service';
 import { CommonModule } from '@angular/common';
 
-// --- IMPORTACIONES DE PRIMENG ---
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -10,19 +9,21 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @Component({
   selector: 'app-juego',
   standalone: true,
-  // ¡Añadimos los módulos de Prime aquí!
   imports: [CommonModule, CardModule, ButtonModule, ProgressSpinnerModule],
   templateUrl: './juego.html',
   styleUrl: './juego.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Juego implements OnInit {
+  juegoIniciado: boolean = false;
+  estadisticas: any = { jugadas: 0, victorias: 0, derrotas: 0 };
+
   partidaActual: any = null;
   preguntaActual: any = null;
   preguntasJugadas: number[] = [];
   juegoFinalizado: boolean = false;
   mensajeFinal: string = '';
-  private TOTAL_PREGUNTAS_BBDD = 15;
+  private TOTAL_PREGUNTAS_BBDD = 30;
 
   constructor(
     private juegoService: JuegoService,
@@ -30,10 +31,17 @@ export class Juego implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.empezarNuevaPartida();
+    this.cargarEstadisticas();
+  }
+
+  cargarEstadisticas(): void {
+    this.estadisticas = JSON.parse(
+      localStorage.getItem('estadisticasESDLA') || '{"jugadas": 0, "victorias": 0, "derrotas": 0}',
+    );
   }
 
   empezarNuevaPartida(): void {
+    this.juegoIniciado = true;
     this.juegoFinalizado = false;
     this.mensajeFinal = '';
     this.preguntasJugadas = [];
@@ -47,6 +55,12 @@ export class Juego implements OnInit {
       },
       error: (err) => console.error('Error al iniciar partida', err),
     });
+  }
+
+  volverAlMenu(): void {
+    this.juegoIniciado = false;
+    this.cargarEstadisticas();
+    this.cdr.markForCheck();
   }
 
   cargarNuevaPregunta(): void {
@@ -77,8 +91,7 @@ export class Juego implements OnInit {
             .actualizarCorrecta(this.partidaActual.id)
             .subscribe((partidaActualizada) => {
               this.partidaActual = partidaActualizada;
-
-              if (this.partidaActual.puntuacion >= 5) {
+              if (this.partidaActual.numeroCorrectas >= 5) {
                 this.gestionarFinDeJuego(true);
               } else {
                 this.cargarNuevaPregunta();
@@ -133,5 +146,6 @@ export class Juego implements OnInit {
     }
 
     localStorage.setItem('estadisticasESDLA', JSON.stringify(stats));
+    this.cargarEstadisticas();
   }
 }

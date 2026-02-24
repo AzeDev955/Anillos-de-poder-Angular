@@ -1,61 +1,99 @@
 <div class="juego-container">
-  <div *ngIf="juegoFinalizado">
-    <p-card [header]="mensajeFinal" styleClass="text-center shadow-4">
-      <p class="text-xl mb-4">
-        Has conseguido <strong>{{ partidaActual?.puntuacion }}</strong> aciertos.
-      </p>
+  <div *ngIf="!juegoIniciado">
+    <p-card header="Tu Récord en la Tierra Media" styleClass="text-center shadow-4">
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          margin-bottom: 2rem;
+          font-size: 1.2rem;
+        "
+      >
+        <div><strong>Partidas Jugadas:</strong> {{ estadisticas.jugadas }}</div>
+        <div style="color: #16a34a"><strong>Victorias:</strong> {{ estadisticas.victorias }}</div>
+        <div style="color: #dc2626"><strong>Derrotas:</strong> {{ estadisticas.derrotas }}</div>
+      </div>
 
       <p-button
-        label="Jugar de nuevo"
-        icon="pi pi-refresh"
-        severity="warning"
+        label="Empezar Partida"
+        icon="pi pi-play"
+        size="large"
         (onClick)="empezarNuevaPartida()"
       >
       </p-button>
     </p-card>
   </div>
 
-  <div *ngIf="!juegoFinalizado && preguntaActual">
-    <p-card [header]="preguntaActual.pregunta" styleClass="text-center shadow-4">
-      <ng-template pTemplate="subtitle">
-        Aciertos:
-        <span style="font-size: 1.2em; font-weight: bold; color: #d4af37">{{
-          partidaActual?.puntuacion
-        }}</span>
-        / 5
-      </ng-template>
+  <ng-container *ngIf="juegoIniciado">
+    <div *ngIf="juegoFinalizado">
+      <p-card [header]="mensajeFinal" styleClass="text-center shadow-4">
+        <p class="text-xl mb-4">
+          Has conseguido <strong>{{ partidaActual?.numeroCorrectas }}</strong> aciertos.
+        </p>
 
-      <div class="respuestas-grid">
-        <p-button
-          [label]="preguntaActual.respuesta1"
-          severity="secondary"
-          [outlined]="true"
-          (onClick)="responder(1)"
-        ></p-button>
-        <p-button
-          [label]="preguntaActual.respuesta2"
-          severity="secondary"
-          [outlined]="true"
-          (onClick)="responder(2)"
-        ></p-button>
-        <p-button
-          [label]="preguntaActual.respuesta3"
-          severity="secondary"
-          [outlined]="true"
-          (onClick)="responder(3)"
-        ></p-button>
-        <p-button
-          [label]="preguntaActual.respuesta4"
-          severity="secondary"
-          [outlined]="true"
-          (onClick)="responder(4)"
-        ></p-button>
-      </div>
-    </p-card>
-  </div>
+        <div style="display: flex; justify-content: center; gap: 1rem">
+          <p-button
+            label="Jugar de nuevo"
+            icon="pi pi-refresh"
+            styleClass="p-button-warning"
+            (onClick)="empezarNuevaPartida()"
+          >
+          </p-button>
 
-  <div *ngIf="!juegoFinalizado && !preguntaActual" class="cargando">
-    <p-progressSpinner ariaLabel="Cargando"></p-progressSpinner>
-    <p style="margin-top: 1rem">Cargando los pergaminos de la Tierra Media...</p>
-  </div>
+          <p-button
+            label="Volver a Estadísticas"
+            icon="pi pi-home"
+            severity="secondary"
+            (onClick)="volverAlMenu()"
+          >
+          </p-button>
+        </div>
+      </p-card>
+    </div>
+
+    <div *ngIf="!juegoFinalizado && preguntaActual">
+      <p-card [header]="preguntaActual.pregunta" styleClass="text-center shadow-4">
+        <ng-template pTemplate="subtitle">
+          Aciertos:
+          <span style="font-size: 1.2em; font-weight: bold; color: #d4af37">
+            {{ partidaActual?.numeroCorrectas }}
+          </span>
+          / 5
+        </ng-template>
+
+        <div class="respuestas-grid">
+          <p-button
+            [label]="preguntaActual.respuesta1"
+            severity="secondary"
+            [outlined]="true"
+            (onClick)="responder(1)"
+          ></p-button>
+          <p-button
+            [label]="preguntaActual.respuesta2"
+            severity="secondary"
+            [outlined]="true"
+            (onClick)="responder(2)"
+          ></p-button>
+          <p-button
+            [label]="preguntaActual.respuesta3"
+            severity="secondary"
+            [outlined]="true"
+            (onClick)="responder(3)"
+          ></p-button>
+          <p-button
+            [label]="preguntaActual.respuesta4"
+            severity="secondary"
+            [outlined]="true"
+            (onClick)="responder(4)"
+          ></p-button>
+        </div>
+      </p-card>
+    </div>
+
+    <div *ngIf="!juegoFinalizado && !preguntaActual" class="cargando">
+      <p-progressSpinner ariaLabel="Cargando"></p-progressSpinner>
+      <p style="margin-top: 1rem">Cargando...</p>
+    </div>
+  </ng-container>
 </div>
