@@ -1,0 +1,23 @@
+<div class="stats-wrapper">
+  <p-card header="Estadísticas de Juego">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <i class="pi pi-gamepad" style="font-size: 2rem; color: #3b82f6"></i>
+        <h3>Partidas Jugadas</h3>
+        <span class="stat-number">{{ estadisticas.jugadas }}</span>
+      </div>
+
+      <div class="stat-box">
+        <i class="pi pi-trophy" style="font-size: 2rem; color: #22c55e"></i>
+        <h3>Victorias</h3>
+        <span class="stat-number green">{{ estadisticas.victorias }}</span>
+      </div>
+
+      <div class="stat-box">
+        <i class="pi pi-times-circle" style="font-size: 2rem; color: #ef4444"></i>
+        <h3>Derrotas</h3>
+        <span class="stat-number red">{{ estadisticas.derrotas }}</span>
+      </div>
+    </div>
+  </p-card>
+</div>
