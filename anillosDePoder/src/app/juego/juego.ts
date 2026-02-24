@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { JuegoService } from '../services/juego-service';
 import { CommonModule } from '@angular/common';
 
@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './juego.html',
   styleUrl: './juego.css',
+  // La ia pone que mejora el rendimiento, lo dejo porsiaca
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Juego implements OnInit {
   partidaActual: any = null;
@@ -17,7 +19,10 @@ export class Juego implements OnInit {
   mensajeFinal: string = '';
   private TOTAL_PREGUNTAS_BBDD = 15;
 
-  constructor(private juegoService: JuegoService) {}
+  constructor(
+    private juegoService: JuegoService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.empezarNuevaPartida();
@@ -33,6 +38,7 @@ export class Juego implements OnInit {
       next: (partida) => {
         this.partidaActual = partida;
         this.cargarNuevaPregunta();
+        this.cdr.markForCheck();
       },
       error: (err) => console.error('Error al iniciar partida', err),
     });
@@ -50,6 +56,7 @@ export class Juego implements OnInit {
       next: (pregunta) => {
         this.preguntaActual = pregunta;
         this.preguntasJugadas.push(pregunta.id);
+        this.cdr.markForCheck();
       },
       error: (err) => console.error('Error al obtener pregunta', err),
     });
@@ -71,6 +78,7 @@ export class Juego implements OnInit {
               } else {
                 this.cargarNuevaPregunta();
               }
+              this.cdr.markForCheck();
             });
         } else {
           this.gestionarFinDeJuego(false);
@@ -92,6 +100,7 @@ export class Juego implements OnInit {
         this.mensajeFinal = '¡Has perdido! Toca repasar los libros y las películas...';
         this.guardarEstadisticasLocales('derrota');
       }
+      this.cdr.markForCheck();
     });
   }
 
