@@ -2,13 +2,18 @@ import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@
 import { JuegoService } from '../services/juego-service';
 import { CommonModule } from '@angular/common';
 
+// --- IMPORTACIONES DE PRIMENG ---
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 @Component({
   selector: 'app-juego',
   standalone: true,
-  imports: [CommonModule],
+  // ¡Añadimos los módulos de Prime aquí!
+  imports: [CommonModule, CardModule, ButtonModule, ProgressSpinnerModule],
   templateUrl: './juego.html',
   styleUrl: './juego.css',
-  // La ia pone que mejora el rendimiento, lo dejo porsiaca
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Juego implements OnInit {

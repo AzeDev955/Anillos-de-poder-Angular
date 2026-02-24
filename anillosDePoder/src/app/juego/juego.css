@@ -1,125 +1,30 @@
-/* Contenedor principal del juego */
 .juego-container {
   max-width: 800px;
   margin: 2rem auto;
-  padding: 1.5rem;
-  font-family: 'Georgia', serif; /* Una fuente más clásica/épica */
-  text-align: center;
-  color: #f1f1f1; /* Texto claro para contrastar con el fondo oscuro */
+  padding: 1rem;
 }
 
-/* Marcador superior */
-.marcador {
-  background-color: rgba(0, 0, 0, 0.6); /* Fondo negro semitransparente */
-  border: 1px solid #d4af37; /* Borde dorado */
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.puntos {
-  color: #d4af37; /* Dorado épico */
-  font-weight: bold;
-  font-size: 1.4rem;
-}
-
-/* Tarjeta principal donde va la pregunta */
-.pregunta-card {
-  background: rgba(
-    20,
-    20,
-    20,
-    0.85
-  ); /* Fondo oscuro translúcido para que se intuya la imagen de fondo */
-  border: 1px solid #444;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px); /* Efecto difuminado en el fondo */
-}
-
-.pregunta-header h2 {
-  font-size: 1.8rem;
-  color: #e5e7eb;
-  margin-bottom: 2.5rem;
-  text-shadow: 1px 1px 2px black;
-}
-
-/* Cuadrícula para las respuestas */
 .respuestas-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  margin-top: 2rem;
 }
 
-/* Botones de respuesta */
-.btn-respuesta {
+::ng-deep .respuestas-grid .p-button {
+  width: 100%;
+  justify-content: center;
   padding: 1.2rem;
   font-size: 1.1rem;
-  font-weight: bold;
-  background-color: #2a2a2a; /* Gris oscuro */
-  color: #d4af37; /* Texto dorado */
-  border: 2px solid #555;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
-/* Efecto hover en los botones (cuando pasas el ratón) */
-.btn-respuesta:hover {
-  background-color: #d4af37; /* Se vuelve dorado */
-  color: #111; /* Texto oscuro */
-  border-color: #d4af37;
-  transform: translateY(-2px); /* Se levanta un poco */
-  box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
-}
-
-/* Pantalla de Fin de Juego */
-.fin-juego-card {
-  background: rgba(20, 20, 20, 0.9);
-  padding: 3rem;
-  border-radius: 12px;
-  border: 2px solid #d4af37;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-}
-
-.fin-juego-card h2 {
-  color: #d4af37;
-  font-size: 2rem;
-}
-
-.puntuacion-final {
-  font-size: 1.3rem;
-  margin: 1.5rem 0;
-}
-
-/* Botón de reiniciar partida */
-.btn-reiniciar {
-  margin-top: 1.5rem;
-  padding: 1rem 2rem;
-  background-color: #d4af37;
-  color: #111;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: all 0.2s ease;
-}
-
-.btn-reiniciar:hover {
-  background-color: #f1c40f;
-  transform: scale(1.05); /* Hace el botón ligeramente más grande */
-}
-
-/* Texto de "Cargando" */
 .cargando {
-  color: #d4af37;
+  text-align: center;
+  margin-top: 4rem;
   font-size: 1.2rem;
-  font-style: italic;
-  margin-top: 3rem;
+  color: #666;
+}
+
+.text-center {
+  text-align: center;
 }
