@@ -1,20 +1,8 @@
 <div class="juego-container">
   <div *ngIf="!juegoIniciado">
-    <p-card header="Tu Récord en la Tierra Media" styleClass="text-center shadow-4">
-      <div
-        style="
-          display: flex;
-          justify-content: center;
-          gap: 2rem;
-          margin-bottom: 2rem;
-          font-size: 1.2rem;
-        "
-      >
-        <div><strong>Partidas Jugadas:</strong> {{ estadisticas.jugadas }}</div>
-        <div style="color: #16a34a"><strong>Victorias:</strong> {{ estadisticas.victorias }}</div>
-        <div style="color: #dc2626"><strong>Derrotas:</strong> {{ estadisticas.derrotas }}</div>
-      </div>
+    <app-estadisticas></app-estadisticas>
 
+    <div style="text-align: center; margin-top: 2rem">
       <p-button
         label="Empezar Partida"
         icon="pi pi-play"
@@ -22,7 +10,7 @@
         (onClick)="empezarNuevaPartida()"
       >
       </p-button>
-    </p-card>
+    </div>
   </div>
 
   <ng-container *ngIf="juegoIniciado">
@@ -42,7 +30,7 @@
           </p-button>
 
           <p-button
-            label="Volver a Estadísticas"
+            label="Volver al Menú"
             icon="pi pi-home"
             severity="secondary"
             (onClick)="volverAlMenu()"

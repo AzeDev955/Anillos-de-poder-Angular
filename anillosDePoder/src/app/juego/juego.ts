@@ -1,23 +1,26 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { JuegoService } from '../services/juego-service';
 import { CommonModule } from '@angular/common';
 
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { Estadisticas } from '../estadisticas/estadisticas';
 
+/**
+ * Al usar *ngIf="!juegoIniciado", el componente <app-estadisticas> "nace y muere" cada vez que entras o sales de una partida. Como su método ngOnInit lee los datos en el momento en el que se crea, al terminar una partida y volver al menú recargará él solo los últimos números que se han guardado.
+ * Esto me ha puesto la IA Fran, parece funcionar bien
+ */
 @Component({
   selector: 'app-juego',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, ProgressSpinnerModule],
+  imports: [CommonModule, CardModule, ButtonModule, ProgressSpinnerModule, Estadisticas],
   templateUrl: './juego.html',
   styleUrl: './juego.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Juego implements OnInit {
+export class Juego {
   juegoIniciado: boolean = false;
-  estadisticas: any = { jugadas: 0, victorias: 0, derrotas: 0 };
-
   partidaActual: any = null;
   preguntaActual: any = null;
   preguntasJugadas: number[] = [];
@@ -29,16 +32,6 @@ export class Juego implements OnInit {
     private juegoService: JuegoService,
     private cdr: ChangeDetectorRef,
   ) {}
-
-  ngOnInit(): void {
-    this.cargarEstadisticas();
-  }
-
-  cargarEstadisticas(): void {
-    this.estadisticas = JSON.parse(
-      localStorage.getItem('estadisticasESDLA') || '{"jugadas": 0, "victorias": 0, "derrotas": 0}',
-    );
-  }
 
   empezarNuevaPartida(): void {
     this.juegoIniciado = true;
@@ -59,7 +52,6 @@ export class Juego implements OnInit {
 
   volverAlMenu(): void {
     this.juegoIniciado = false;
-    this.cargarEstadisticas();
     this.cdr.markForCheck();
   }
 
@@ -146,6 +138,5 @@ export class Juego implements OnInit {
     }
 
     localStorage.setItem('estadisticasESDLA', JSON.stringify(stats));
-    this.cargarEstadisticas();
   }
 }
