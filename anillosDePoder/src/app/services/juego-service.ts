@@ -12,23 +12,23 @@ export class JuegoService {
   constructor(private http: HttpClient) {}
 
   empezarPartida(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/empezarPartida/`);
+    return this.http.get<any>(`${this.apiUrl}empezarPartida/`);
   }
 
   obtenerPregunta(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/obtenerPregunta/${id}`);
+    return this.http.get<any>(`${this.apiUrl}obtenerPregunta/${id}`);
   }
 
   comprobarRespuesta(idPregunta: number, respuestaUsuario: number): Observable<boolean> {
     const params = new HttpParams().set('respuestaUsuario', respuestaUsuario.toString());
-    return this.http.get<boolean>(`${this.apiUrl}/respuesta/${idPregunta}/`, { params });
+    return this.http.get<boolean>(`${this.apiUrl}respuesta/${idPregunta}/`, { params });
   }
 
   actualizarCorrecta(idPartida: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/correcta/${idPartida}/`, {});
+    return this.http.put<any>(`${this.apiUrl}correcta/${idPartida}/`, {});
   }
 
   finalizarPartida(idPartida: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/finalizar/${idPartida}/`, {});
+    return this.http.put<any>(`${this.apiUrl}finalizar/${idPartida}/`, {});
   }
 }

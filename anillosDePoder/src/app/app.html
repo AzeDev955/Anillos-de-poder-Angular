@@ -9,16 +9,15 @@
 
       <button routerLink="/explorar-razas" class="btn-nav">Explorar Razas</button>
       <button routerLink="/crear-raza" class="btn-nav">Crear Raza</button>
-      <button routerLink="/personajes">Buscar personajes</button>
-      <button routerLink="/padre">Ver modales</button>
+      <button routerLink="/personajes" class="btn-nav">Buscar personajes</button>
+      <button routerLink="/padre" class="btn-nav">Ver modales</button>
+
+      <button routerLink="/juego" class="btn-nav" style="background-color: #ea580c">
+        Jugar Minijuego
+      </button>
     </div>
   </div>
 </header>
-<!--@for (pais of paises; track pais.name.common) {
-  <li>{{ pais.name.common }}</li>
-} @empty {
-  <li>There are no items.</li>
-}-->
 
 <div style="padding: 20px">
   <router-outlet />

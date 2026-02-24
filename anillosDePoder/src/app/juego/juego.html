@@ -1,1 +1,30 @@
-<p>juego works!</p>
+<div class="juego-container">
+  <div *ngIf="juegoFinalizado" class="fin-juego-card">
+    <h2>{{ mensajeFinal }}</h2>
+    <p class="puntuacion-final">Has conseguido {{ partidaActual?.puntuacion }} aciertos.</p>
+    <button class="btn-reiniciar" (click)="empezarNuevaPartida()">Jugar de nuevo</button>
+  </div>
+
+  <div *ngIf="!juegoFinalizado && preguntaActual" class="pregunta-card">
+    <div class="marcador">
+      <h3>
+        Aciertos: <span class="puntos">{{ partidaActual?.puntuacion }}</span> / 5
+      </h3>
+    </div>
+
+    <div class="pregunta-header">
+      <h2>{{ preguntaActual.pregunta }}</h2>
+    </div>
+
+    <div class="respuestas-grid">
+      <button class="btn-respuesta" (click)="responder(1)">{{ preguntaActual.respuesta1 }}</button>
+      <button class="btn-respuesta" (click)="responder(2)">{{ preguntaActual.respuesta2 }}</button>
+      <button class="btn-respuesta" (click)="responder(3)">{{ preguntaActual.respuesta3 }}</button>
+      <button class="btn-respuesta" (click)="responder(4)">{{ preguntaActual.respuesta4 }}</button>
+    </div>
+  </div>
+
+  <div *ngIf="!juegoFinalizado && !preguntaActual" class="cargando">
+    <p>Cargando los pergaminos de la Tierra Media...</p>
+  </div>
+</div>

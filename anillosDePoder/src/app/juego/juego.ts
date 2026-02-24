@@ -6,10 +6,10 @@ import { CommonModule } from '@angular/common';
   selector: 'app-juego',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './juego.component.html',
-  styleUrl: './juego.component.css',
+  templateUrl: './juego.html',
+  styleUrl: './juego.css',
 })
-export class JuegoComponent implements OnInit {
+export class Juego implements OnInit {
   partidaActual: any = null;
   preguntaActual: any = null;
   preguntasJugadas: number[] = [];

@@ -7,6 +7,9 @@ import { BuscarPersonaje } from './personajes/buscar-personaje/buscar-personaje'
 import { EditarPersonajeComponent } from './personajes/editar-personaje/editar-personaje';
 import { Padre } from './modales/padre/padre';
 
+// Importamos el nuevo componente del juego
+import { Juego } from './juego/juego';
+
 export const routes: Routes = [
   { path: 'buscar-anillo', component: Busqueda },
   { path: 'crear-anillo', component: Detalle },
@@ -16,5 +19,6 @@ export const routes: Routes = [
   { path: 'personajes/nuevo', component: EditarPersonajeComponent },
   { path: 'personajes/editar/:id', component: EditarPersonajeComponent },
   { path: 'padre', component: Padre },
+  { path: 'juego', component: Juego },
   { path: '', redirectTo: 'buscar-anillo', pathMatch: 'full' },
 ];
